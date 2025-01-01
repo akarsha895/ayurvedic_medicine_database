@@ -15,6 +15,22 @@ import ManageMedicinalPlants from './pages/ManageMedicinalPlants';
 import ManageDiseases from './pages/ManageDiseases'; 
 import ManageHerbalPreparations from './pages/ManageHerbalPreparations'; 
 import ManageAyurvedicTreatments from './pages/ManageAyurvedicTreatments'; 
+import AyuTreatInsert from './pages/adminDashboardPages/ayuTreatInsert';
+import AyuTreatUpdate from './pages/adminDashboardPages/ayuTreatUpdate';
+import AyuTreatDelete from './pages/adminDashboardPages/ayuTreatDelete';
+import AyuTreatView from './pages/adminDashboardPages/ayuTreatView';
+import MedicinalPlantInsert from './pages/adminDashboardPages/medicinalPlantInsert';
+import MedPlantUpdate from './pages/adminDashboardPages/medPlantUpdate';
+import MedPlantDelete from './pages/adminDashboardPages/medPlantDelete';
+import MedPlantView from './pages/adminDashboardPages/medPlantView';
+import DiseaseInsert from './pages/adminDashboardPages/diseaseInsert';
+import DiseaseUpdate from './pages/adminDashboardPages/diseaseUpdate';
+import DiseaseDelete from './pages/adminDashboardPages/diseaseDelete';
+import DiseaseView from './pages/adminDashboardPages/diseaseView';
+import HerbPrepInsert from './pages/adminDashboardPages/herbPrepInsert';
+import HerbPrepUpdate from './pages/adminDashboardPages/herbPrepUpdate';
+import HerbPrepDelete from './pages/adminDashboardPages/herbPrepDelete';
+import HerbPrepView from './pages/adminDashboardPages/herbPrepView';
 
 function App() {
   return (
@@ -34,6 +50,28 @@ function App() {
         <Route path="/admin-herbalprep" element={<ManageHerbalPreparations />} />
         <Route path="/admin-disease" element={<ManageDiseases/>} /> 
         <Route path="/admin-medicinalPlant" element={<ManageMedicinalPlants />} />
+        <Route path="/register" element={<RegisterPage />} /> {/* Admin registration route */}
+        <Route path="/admin-medicinalPlant/insert" element={<MedicinalPlantInsert/>} />
+        <Route path="/admin-medicinalPlant/update" element={<MedPlantUpdate/>} />
+        <Route path="/admin-medicinalPlant/delete" element={<MedPlantDelete/>} />
+        <Route path="/admin-medicinalPlant/view" element={<MedPlantView/>} />
+        <Route path="/admin-disease/insert" element={<DiseaseInsert/>} />
+        <Route path="/admin-disease/update" element={<DiseaseUpdate/>} />
+        <Route path="/admin-disease/delete" element={<DiseaseDelete/>} />
+        <Route path="/admin-disease/view" element={<DiseaseView/>} />
+        <Route path="/admin-herbalprep/insert" element={<HerbPrepInsert/>} />
+        <Route path="/admin-herbalprep/update" element={<HerbPrepUpdate/>} />
+        <Route path="/admin-herbalprep/delete" element={<HerbPrepDelete/>} />
+        <Route path="/admin-herbalprep/view" element={<HerbPrepView/>} />
+        <Route path="/admin-ayumed/insert" element={<AyuTreatInsert/>} />
+        <Route path="/admin-ayumed/update" element={<AyuTreatUpdate/>} />
+        <Route path="/admin-ayumed/delete" element={<AyuTreatDelete/>} />
+        <Route path="/admin-ayumed/view" element={<AyuTreatView/>} />
+
+
+
+
+
       </Routes>
     </Router>
   );
