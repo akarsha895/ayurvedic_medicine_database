@@ -34,12 +34,10 @@ function HomePage() {
                   beatae neque.t
                 </p>
                 <button className="bg-color-4 text-white p-2 rounded-lg  border-2 mt-4 hover:border-color-1 hover:text-white">
-                  <a
-                    href="https://bsi.gov.in/page/en/medicinal-plant-database"
-                    target="_blank"
-                  >
+                  <Link to="/aboutus" className="text-white">
+                    
                     Explore More..
-                  </a>
+                  </Link>
                 </button>
               </div>
             </div>
