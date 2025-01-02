@@ -1,9 +1,154 @@
-import React from 'react'
+import React, { useState } from "react";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 function HerbPrepInsert() {
+  const [formData, setFormData] = useState({
+    herbalPreparationName: "",
+    methodOfPreparation: "",
+    plantName: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    // Validate form data
+    if (
+      !formData.herbalPreparationName ||
+      !formData.methodOfPreparation ||
+      !formData.plantName
+    ) {
+      toast.error("Please fill in all fields.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
+
+    // Simulate successful submission
+    toast.success("Herbal preparation added successfully!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+
+    // Clear the form
+    setFormData({
+      herbalPreparationName: "",
+      methodOfPreparation: "",
+      plantName: "",
+    });
+  };
+
   return (
-    <div>herbPrepInsert</div>
-  )
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <div className="flex flex-grow mt-20">
+        {/* Sidebar */}
+        <div className="bg-color-4  w-1/4 p-8">
+                 <h2 className="text-2xl text-white font-serif mb-4">Admin Dashboard</h2>
+                 <nav className="space-y-4">
+                   <div className="group">
+                     <button className="bg-color-2 text-white p-2 rounded-lg w-full text-left group-hover:bg-color-3">
+                       Manage Medicinal Plants
+                     </button>
+                     <div className="hidden group-hover:block bg-color-3 rounded-lg mt-2 space-y-2">
+                       <Link to="/admin-medicinalPlant/insert" className="block text-white px-4 py-2 hover:bg-color-2">Insert</Link>
+                       <Link to="/admin-medicinalPlant/update" className="block text-white px-4 py-2 hover:bg-color-2">Update</Link>
+                       <Link to="/admin-medicinalPlant/view" className="block text-white px-4 py-2 hover:bg-color-2">View</Link>
+                       <Link to="/admin-medicinalPlant/delete" className="block text-white px-4 py-2 hover:bg-color-2">Delete</Link>
+                     </div>
+                   </div>
+       
+                   <div className="group">
+                     <button className="bg-color-2 text-white p-2 rounded-lg w-full text-left group-hover:bg-color-3">
+                       Manage Diseases
+                     </button>
+                     <div className="hidden group-hover:block bg-color-3 rounded-lg mt-2 space-y-2">
+                       <Link to="/admin-disease/insert" className="block text-white px-4 py-2 hover:bg-color-2">Insert</Link>
+                       <Link to="/admin-disease/update" className="block text-white px-4 py-2 hover:bg-color-2">Update</Link>
+                       <Link to="/admin-disease/view" className="block text-white px-4 py-2 hover:bg-color-2">View</Link>
+                       <Link to="/admin-disease/delete" className="block text-white px-4 py-2 hover:bg-color-2">Delete</Link>
+                     </div>
+                   </div>
+                    <div className="group">
+                                                 <button className="bg-color-2 text-white p-2 rounded-lg w-full text-left group-hover:bg-color-3">
+                                                   Manage Herbal Preparations
+                                                 </button>
+                                                 <div className="hidden group-hover:block bg-color-3 rounded-lg mt-2 space-y-2">
+                                                   <Link to="/admin-herbalprep/insert" className="block text-white px-4 py-2 hover:bg-color-2">Insert</Link>
+                                                   <Link to="/admin-herbalprep/update" className="block text-white px-4 py-2 hover:bg-color-2">Update</Link>
+                                                   <Link to="/admin-herbalprep/view" className="block text-white px-4 py-2 hover:bg-color-2">View</Link>
+                                                   <Link to="/admin-herbalprep/delete" className="block text-white px-4 py-2 hover:bg-color-2">Delete</Link>
+                                                 </div>
+                                               </div>
+                                   
+                                               <div className="group">
+                                                 <button className="bg-color-2 text-white p-2 rounded-lg w-full text-left group-hover:bg-color-3">
+                                                   Manage Ayurvedic Treatments
+                                                 </button>
+                                                 <div className="hidden group-hover:block bg-color-3 rounded-lg mt-2 space-y-2">
+                                                   <Link to="/admin-ayumed/insert" className="block text-white px-4 py-2 hover:bg-color-2">Insert</Link>
+                                                   <Link to="/admin-ayumed/update" className="block text-white px-4 py-2 hover:bg-color-2">Update</Link>
+                                                   <Link to="/admin-ayumed/view" className="block text-white px-4 py-2 hover:bg-color-2">View</Link>
+                                                   <Link to="/admin-ayumed/delete" className="block text-white px-4 py-2 hover:bg-color-2">Delete</Link>
+                                                 </div>
+                                               </div>
+                 </nav>
+               </div>
+
+        {/* Main Content */}
+        <main className="flex-grow bg-gray-100 p-8 flex items-center justify-center">
+          <div className="bg-color-4 text-lg text-white p-6 w-full max-w-lg rounded-lg shadow-lg">
+            <h1 className="text-3xl text-center font-serif mb-6">
+              Add Herbal Preparation
+            </h1>
+            <div className="flex flex-col">
+              <input
+                type="text"
+                name="herbalPreparationName"
+                placeholder="Herbal Preparation Name"
+                value={formData.herbalPreparationName}
+                onChange={handleInputChange}
+                className="p-2 m-2 border border-gray-300 rounded-md"
+              />
+              <input
+                type="text"
+                name="methodOfPreparation"
+                placeholder="Method of Preparation"
+                value={formData.methodOfPreparation}
+                onChange={handleInputChange}
+                className="p-2 m-2 border border-gray-300 rounded-md"
+              />
+              <input
+                type="text"
+                name="plantName"
+                placeholder="Plant Name"
+                value={formData.plantName}
+                onChange={handleInputChange}
+                className="p-2 m-2 border border-gray-300 rounded-md"
+              />
+              {/* Submit Button */}
+              <button
+                onClick={handleSubmit}
+                className="bg-color-1 p-2 m-2 rounded-lg text-white"
+              >
+                Add Herbal Preparation
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      {/* Toast Container */}
+      <ToastContainer />
+
+      <Footer />
+    </div>
+  );
 }
 
-export default HerbPrepInsert
+export default HerbPrepInsert;

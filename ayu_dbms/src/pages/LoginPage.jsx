@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
@@ -87,7 +87,9 @@ function LoginPage() {
               type="submit"
               className="w-full bg-color-1 text-white py-2 px-4 rounded-lg hover:border-2 hover:border-color-5 transition duration-200"
             >
+              <Link to="/admin-dashboard">
               Login
+              </Link>
             </button>
           </form>
         </div>

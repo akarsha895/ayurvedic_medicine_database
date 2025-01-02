@@ -45,9 +45,9 @@ function MedPlantUpdate() {
   return (
     <div className="w-full h-screen flex flex-col">
       <Navbar />
-      <div className="flex flex-grow">
+      <div className="flex flex-grow mt-20">
         {/* Sidebar */}
-        <div className="bg-color-4 mt-20 w-1/4 p-8">
+        <div className="bg-color-4  w-1/4 p-8">
           <h2 className="text-2xl text-white font-serif mb-4">Admin Dashboard</h2>
           <nav className="space-y-4">
             <div className="group">

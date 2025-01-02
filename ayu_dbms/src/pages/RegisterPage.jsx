@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // For navigation after registration
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // For navigation after registration
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    confirmPassword: '',
+    username: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const navigate = useNavigate(); // Hook to programmatically navigate
@@ -23,9 +23,9 @@ function RegisterPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle registration logic here (e.g., save user data)
-    console.log('Registration submitted:', formData);
+    console.log("Registration submitted:", formData);
     // Redirect to login page after successful registration
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -33,10 +33,12 @@ function RegisterPage() {
       <Navbar />
       <div className="bg-color-4 text-lg text-white p-6 w-1/3 m-auto my-4">
         <h1 className="text-4xl text-center font-serif">Register</h1>
-        
+
         <form onSubmit={handleSubmit} className="mt-6">
           <div className="mb-4">
-            <label className="block text-lg" htmlFor="username">Username:</label>
+            <label className="block text-lg" htmlFor="username">
+              Username:
+            </label>
             <input
               type="text"
               id="username"
@@ -48,7 +50,9 @@ function RegisterPage() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-lg" htmlFor="password">Password:</label>
+            <label className="block text-lg" htmlFor="password">
+              Password:
+            </label>
             <input
               type="password"
               id="password"
@@ -60,7 +64,9 @@ function RegisterPage() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-lg" htmlFor="confirmPassword">Confirm Password:</label>
+            <label className="block text-lg" htmlFor="confirmPassword">
+              Confirm Password:
+            </label>
             <input
               type="password"
               id="confirmPassword"
@@ -72,7 +78,10 @@ function RegisterPage() {
             />
           </div>
           <div className="flex justify-center">
-            <button type="submit" className="bg-color-1 text-white p-2 rounded-lg hover:border-white hover:border-2 px-2 py-1 m-4">
+            <button
+              type="submit"
+              className="bg-color-1 text-white p-2 rounded-lg hover:border-white hover:border-2 px-2 py-1 m-4"
+            >
               Register
             </button>
           </div>
