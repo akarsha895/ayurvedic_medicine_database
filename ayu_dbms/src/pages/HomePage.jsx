@@ -25,13 +25,7 @@ function HomePage() {
 
                 <p className="mt-2  text-lg">
                   {" "}
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Nesciunt ad asperiores at velit reiciendis aperiam, in dolorem
-                  sequi perspiciatis aliquid veritatis minima, sit, beatae
-                  neque.t Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. Nesciunt ad asperiores at velit reiciendis aperiam, in
-                  dolorem sequi perspiciatis aliquid veritatis minima, sit,
-                  beatae neque.t
+                  Ayurveda is an ancient medicine system of the Indian subcontinent. It is said to have originated in India about 5000 years back. The word Ayurveda is a conjugation of two Sanskrit words 'ayus', meaning 'life' and 'veda', meaning 'science', thus ayurveda literally means the 'science of life'.
                 </p>
                 <button className="bg-color-4 text-white p-2 rounded-lg  border-2 mt-4 hover:border-color-1 hover:text-white">
                   <Link to="/aboutus" className="text-white">
