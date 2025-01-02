@@ -6,7 +6,7 @@ function AboutUsPage() {
   return (
     <div className="text-black w-full h-screen">
       <Navbar />
-      <div className="bg-color-2 text-lg text-white p-6 w-2/3 m-auto my-4">
+      <div className="bg-color-2 text-lg text-white p-6 w-2/3 m-auto my-20 rounded-lg shadow-lg">
         <h1 className="text-4xl text-center font-serif">About Us</h1>
         <h2 className="text-2xl mt-4">Introduction to Ayurveda</h2>
         <p>
