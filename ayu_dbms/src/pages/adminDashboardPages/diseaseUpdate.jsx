@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { ToastContainer, toast } from 'react-toastify';
@@ -20,7 +20,7 @@ function DiseaseUpdate() {
   const handleSubmit = () => {
     // Simulate API call for updating disease
     toast.success('Disease updated successfully!', {
-      position: toast.POSITION.TOP_CENTER,
+      position: 'top-center',
     });
     setFormData({ diseaseName: '', affectedDoshas: '', symptoms: '' });
   };

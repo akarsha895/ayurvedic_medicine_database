@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Navbar from '../../components/Navbar';
+import { useState } from 'react';
+// import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import axios from '../../services/api';
 import { ToastContainer, toast } from 'react-toastify';
@@ -28,17 +28,17 @@ function MedPlantUpdate() {
         setUpdatedPlant({ name: '', scientific_name: '', family: '' });
         setPlantId('');
         toast.success('Plant table updated successfully!', {
-          position: toast.POSITION.TOP_CENTER,
+          position: 'top-center',
         });
       } else {
         toast.error('Please provide at least one field to update.', {
-          position: toast.POSITION.TOP_CENTER,
+          position: 'top-center',
         });
       }
     } catch (error) {
       console.error('Error updating plant:', error);
       toast.error('Failed to update plant. Please try again.', {
-        position: toast.POSITION.TOP_CENTER,
+        position: 'top-center',
       });
     }
   };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useNavigate } from "react-router-dom"; // For navigation after registration
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";

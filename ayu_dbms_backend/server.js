@@ -18,7 +18,7 @@ const herbalPreparationRoutes = require('./routes/herbalPreparationRoutes'); // 
 
 // Use routes
 app.use('/api/auth', authRoutes);
-app.use('/api/plants', plantRoutes);
+app.use('/api/medicinal-plants', plantRoutes);
 app.use('/api/diseases', diseaseRoutes); // Use disease routes
 app.use('/api/treatments', treatmentRoutes); // Use Ayurvedic treatment routes
 app.use('/api/herbal-preparations', herbalPreparationRoutes);

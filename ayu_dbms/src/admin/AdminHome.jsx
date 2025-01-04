@@ -1,4 +1,3 @@
-import React from 'react'
 import AdminNavbar from './AdminNavbar';
 import { Link } from 'react-router-dom';
 import HomeImg from '../assets/homeimg.jpg';
@@ -7,7 +6,7 @@ import Disease from '../assets/disease.png';
 import AyuMed from '../assets/ayurvedicMedicine.png';
 import HerbalPrep from '../assets/herbalPreparation.png';
 import Footer from '../components/Footer';
-import logo from '../assets/logo.png';
+// import logo from '../assets/logo.png';
 
 function AdminHome() {
   return (
@@ -26,7 +25,7 @@ function AdminHome() {
 
                 <p className="mt-2  text-lg">
                   {" "}
-                  Ayurveda is an ancient medicine system of the Indian subcontinent. It is said to have originated in India about 5000 years back. The word Ayurveda is a conjugation of two Sanskrit words 'ayus', meaning 'life' and 'veda', meaning 'science', thus ayurveda literally means the 'science of life'.
+                  Ayurveda is an ancient medicine system of the Indian subcontinent. It is said to have originated in India about 5000 years back. The word Ayurveda is a conjugation of two Sanskrit words `ayus`, meaning `life`` and `veda`, meaning `science`, thus ayurveda literally means the `science of life`.
                 </p>
                 <button className="bg-color-4 text-white p-2 rounded-lg  border-2 mt-4 hover:border-color-1 hover:text-white">
                   <Link to="/aboutus" className="text-white">

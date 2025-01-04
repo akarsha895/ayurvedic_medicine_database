@@ -1,4 +1,3 @@
-import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -10,8 +9,8 @@ function AboutUsPage() {
         <h1 className="text-4xl text-center font-serif">About Us</h1>
         <h2 className="text-2xl mt-4">Introduction to Ayurveda</h2>
         <p>
-          Ayurveda is an ancient healing system that originated in India over 5,000 years ago. The term "Ayurveda" is derived from two Sanskrit words: 
-          <strong> "Ayur" (Life)</strong> and <strong> "Veda" (Knowledge, Science, Wisdom)</strong>. It is often referred to as the "Science of Life," focusing on maintaining health and well-being rather than merely treating diseases.
+          Ayurveda is an ancient healing system that originated in India over 5,000 years ago. The term `Ayurveda` is derived from two Sanskrit words: 
+          <strong> `Ayur`` (Life)</strong> and <strong> `Veda` (Knowledge, Science, Wisdom)</strong>. It is often referred to as the `Science of Life,` focusing on maintaining health and well-being rather than merely treating diseases.
         </p>
 
         <h2 className="text-2xl mt-4">Our Mission</h2>

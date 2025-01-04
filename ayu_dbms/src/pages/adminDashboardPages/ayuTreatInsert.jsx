@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { ToastContainer, toast } from 'react-toastify';
@@ -21,14 +21,14 @@ function AyuTreatInsert() {
     // Validate input
     if (!formData.treatmentName || !formData.duration || !formData.disease) {
       toast.error('Please fill in all fields.', {
-        position: toast.POSITION.TOP_CENTER,
+        position: 'top-center',
       });
       return;
     }
 
     // Simulate successful submission
     toast.success('Ayurvedic treatment added successfully!', {
-      position: toast.POSITION.TOP_CENTER,
+      position: 'top-center',
     });
 
     // Clear the form

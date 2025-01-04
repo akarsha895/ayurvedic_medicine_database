@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { ToastContainer, toast } from 'react-toastify';
@@ -19,7 +19,7 @@ const DiseaseView = () => {
         setDiseases(data);
       } catch (error) {
         toast.error('Failed to fetch disease data. Please try again later.', {
-          position: toast.POSITION.TOP_CENTER,
+          position: 'top-center',
         });
       }
     };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { ToastContainer, toast } from 'react-toastify';
@@ -26,14 +26,14 @@ function HerbPrepUpdate() {
     // Validate input
     if (!searchCriteria) {
       toast.error('Please enter a search criteria to find the herbal preparation.', {
-        position: toast.POSITION.TOP_CENTER,
+        position: 'top-center',
       });
       return;
     }
 
     // Simulate successful update
     toast.success('Herbal preparation updated successfully!', {
-      position: toast.POSITION.TOP_CENTER,
+      position:'top-center',
     });
 
     // Clear the form

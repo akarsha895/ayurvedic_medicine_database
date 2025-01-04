@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import { useEffect, useState } from "react";
+// import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import {

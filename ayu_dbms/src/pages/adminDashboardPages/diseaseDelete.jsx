@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { ToastContainer, toast } from 'react-toastify';
@@ -16,14 +16,14 @@ function DiseaseDelete() {
     // Simulate API call for deleting disease
     if (identifier.trim() === '') {
       toast.error('Please enter a disease name or ID to delete.', {
-        position: toast.POSITION.TOP_CENTER,
+        position: 'top-center',
       });
       return;
     }
 
     // Simulate successful deletion
     toast.success(`Disease with identifier "${identifier}" deleted successfully!`, {
-      position: toast.POSITION.TOP_CENTER,
+      position:'top-center',
     });
     setIdentifier(''); // Clear input after deletion
   };

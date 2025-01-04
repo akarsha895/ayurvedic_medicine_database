@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { ToastContainer, toast } from 'react-toastify';
@@ -16,7 +16,7 @@ function AyuTreatDelete() {
     // Validate input
     if (treatmentId.trim() === '') {
       toast.error('Please enter an Ayurvedic Treatment ID to delete.', {
-        position: toast.POSITION.TOP_CENTER,
+        position: 'top-center',
       });
       return;
     }

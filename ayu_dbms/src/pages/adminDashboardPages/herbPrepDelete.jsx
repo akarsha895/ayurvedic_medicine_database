@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { ToastContainer, toast } from 'react-toastify';
@@ -16,14 +16,14 @@ function HerbPrepDelete() {
     // Validate input
     if (herbalPrepId.trim() === '') {
       toast.error('Please enter a Herbal Preparation ID to delete.', {
-        position: toast.POSITION.TOP_CENTER,
+        position:'top-center',
       });
       return;
     }
 
     // Simulate successful deletion
     toast.success(`Herbal preparation with ID "${herbalPrepId}" deleted successfully!`, {
-      position: toast.POSITION.TOP_CENTER,
+      position: 'top-center',
     });
 
     // Clear the input

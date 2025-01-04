@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { ToastContainer, toast } from 'react-toastify';
@@ -28,7 +28,7 @@ function AyuTreatView() {
         setTreatments(sampleTreatments);
       } catch (error) {
         toast.error('Failed to fetch Ayurvedic treatments. Please try again later.', {
-          position: toast.POSITION.TOP_CENTER,
+          position: 'top-center',
         });
       }
     };

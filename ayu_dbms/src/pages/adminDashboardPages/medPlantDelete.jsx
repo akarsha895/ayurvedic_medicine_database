@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navbar from "../../components/Navbar";
+// import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import axios from "../../services/api";
 import { Link } from "react-router-dom";
@@ -17,17 +17,17 @@ function MedPlantDelete() {
         await axios.delete(`/medicinal-plants/${plantId}`);
         setPlantId("");
         toast.success("Plant deleted successfully!", {
-          position: toast.POSITION.TOP_CENTER,
+          position: 'top-center',
         });
       } else {
         toast.error("Please provide a valid Plant ID.", {
-          position: toast.POSITION.TOP_CENTER,
+          position: 'top-center',
         });
       }
     } catch (error) {
       console.error("Error deleting plant:", error);
       toast.error("Failed to delete plant. Please try again.", {
-        position: toast.POSITION.TOP_CENTER,
+        position: 'top-center',
       });
     }
   };
