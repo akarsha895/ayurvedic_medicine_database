@@ -92,6 +92,34 @@ exports.addDisease = (req, res) => {
 };
 
 
+exports.addDisease = (req, res) => {
+    const { name, effected_doshas, symptoms } = req.body;
+
+    if (!name || !effected_doshas || !Array.isArray(symptoms)) {
+        return res.status(400).json({ error: 'Invalid request data' });
+    }
+
+    const diseaseQuery = 'INSERT INTO Disease (name, effected_doshas) VALUES (?, ?)';
+    db.query(diseaseQuery, [name, effected_doshas], (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+
+        const diseaseId = result.insertId;
+
+        // Filter unique, non-null symptoms
+        const uniqueSymptoms = [...new Set(symptoms.filter(symptom => symptom))];
+
+        const symptomQuery = 'INSERT INTO Disease_symptoms (disease_id, symptom) VALUES (?, ?)';
+        uniqueSymptoms.forEach(symptom => {
+            db.query(symptomQuery, [diseaseId, symptom], (err) => {
+                if (err) console.error('Symptom insert error:', err.message);
+            });
+        });
+
+        res.status(201).json({ message: 'Disease added successfully' });
+    });
+};
+
+
 // Update an existing disease (admin only)
 exports.updateDisease = (req, res) => {
     const { id } = req.params;
