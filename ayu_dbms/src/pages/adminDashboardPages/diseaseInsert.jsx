@@ -7,77 +7,89 @@ import { Link } from "react-router-dom";
 
 function DiseaseInsert() {
   const [formData, setFormData] = useState({
-    diseaseName: "",
-    affectedDoshas: "",
-    symptoms: [], // To store an array of symptoms
-    currentSymptom: "", // For current symptom input
+      diseaseName: "",
+      affectedDoshas: "",
+      symptoms: [],
+      currentSymptom: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSymptomChange = (e) => {
-    setFormData({ ...formData, currentSymptom: e.target.value });
+      const { name, value } = e.target;
+      setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const addSymptom = () => {
-    if (formData.currentSymptom) {
-      setFormData({
-        ...formData,
-        symptoms: [...formData.symptoms, formData.currentSymptom],
-        currentSymptom: "", // Clear current symptom input
-      });
-    } else {
-      toast.error("Please enter a symptom before adding.", {
-        position: "top-center",
-      });
-    }
+      if (formData.currentSymptom.trim()) {
+          setFormData(prev => ({
+              ...prev,
+              symptoms: [...prev.symptoms, prev.currentSymptom.trim()],
+              currentSymptom: ""
+          }));
+      } else {
+          toast.warning("Please enter a symptom before adding.");
+      }
   };
 
-  const handleSubmit = () => {
-    if (!formData.diseaseName || !formData.affectedDoshas || formData.symptoms.length === 0) {
-      toast.error("Please fill in all required fields and add at least one symptom.", {
-        position: "top-center",
-      });
-      return;
-    }
+  const removeSymptom = (index) => {
+      setFormData(prev => ({
+          ...prev,
+          symptoms: prev.symptoms.filter((_, i) => i !== index)
+      }));
+  };
 
-    // Prepare data for submission
-    const diseaseData = {
-      name: formData.diseaseName,
-      effected_doshas: formData.affectedDoshas,
-      symptoms: formData.symptoms, // Send the list of symptoms
-    };
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      
+      // Validation
+      if (!formData.diseaseName.trim()) {
+          toast.error("Please enter disease name");
+          return;
+      }
+      if (!formData.affectedDoshas.trim()) {
+          toast.error("Please enter affected doshas");
+          return;
+      }
+      if (formData.symptoms.length === 0) {
+          toast.error("Please add at least one symptom");
+          return;
+      }
 
-    // Simulate an API call to insert disease and symptoms
-    fetch('/api/diseases', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(diseaseData),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to add disease.");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        toast.success("Disease added successfully with symptoms!", {
-          position: "top-center",
-        });
+      setIsSubmitting(true);
 
-        // Reset the form
-        setFormData({ diseaseName: "", affectedDoshas: "", symptoms: [], currentSymptom: "" });
-      })
-      .catch((error) => {
-        toast.error(`Error adding disease: ${error.message}`, {
-          position: "top-center",
-        });
-      });
+      try {
+          const response = await fetch('http://localhost:5000/api/diseases', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  name: formData.diseaseName.trim(),
+                  effected_doshas: formData.affectedDoshas.trim(),
+                  symptoms: formData.symptoms
+              })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+              throw new Error(data.error || 'Failed to add disease');
+          }
+
+          toast.success("Disease added successfully!");
+          // Reset form
+          setFormData({
+              diseaseName: "",
+              affectedDoshas: "",
+              symptoms: [],
+              currentSymptom: ""
+          });
+      } catch (error) {
+          console.error('Error details:', error);
+          toast.error(error.message || 'Error adding disease');
+      } finally {
+          setIsSubmitting(false);
+      }
   };
 
   return (
@@ -167,13 +179,21 @@ function DiseaseInsert() {
                 <input  
                   type="text"
                   value={formData.currentSymptom}
-                  onChange={handleSymptomChange}
+                  onChange={(e) => setFormData(prev => ({ ...prev, currentSymptom: e.target.value }))}
                   placeholder="Add Symptom"
                   className="p-2 m-2 border border-gray-300 rounded-md text-black"
+                  disabled={isSubmitting}
+                  onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                          e.preventDefault();
+                          addSymptom();
+                      }
+                  }}
                 />
                 <button
                   onClick={addSymptom}
                   className="bg-color-2 p-2 m-2 rounded-lg text-white"
+                  disabled={isSubmitting}
                 >
                   Add Symptom
                 </button>
@@ -182,7 +202,15 @@ function DiseaseInsert() {
                 <h4>Symptoms List:</h4>
                 <ul>
                   {formData.symptoms.map((symptom, index) => (
-                    <li key={index}>{symptom}</li> // Changed to use index as key
+                    <li key={index} className="flex justify-between items-center mb-1">{symptom}
+                     <button
+                                    type="button"
+                                    onClick={() => removeSymptom(index)}
+                                    className="text-red-500 ml-2"
+                                >
+                                    ×
+                                </button>
+                    </li> // Changed to use index as key
                   ))}
                 </ul>
               </div>

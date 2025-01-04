@@ -11,7 +11,8 @@ const db = mysql.createConnection({
     host: process.env.DB_HOST || 'localhost', // Default to localhost if not specified
     user: process.env.DB_USER, // Use environment variable for username
     password: process.env.DB_PASSWORD, // Use environment variable for password
-    database: process.env.DB_NAME || 'your_database' // Use environment variable for database name
+    database: process.env.DB_NAME || 'ayurvedic_database' // Use environment variable for database name
+    
 });
 
 // Connect to the database

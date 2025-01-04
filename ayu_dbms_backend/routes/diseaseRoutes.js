@@ -13,3 +13,5 @@ router.delete('/:id',  diseaseController.deleteDisease); // Admin only route to 
 router.get('/symptoms', diseaseController.getAllDiseaseSymptoms); // Get all disease symptoms
 
 module.exports = router;
+
+
