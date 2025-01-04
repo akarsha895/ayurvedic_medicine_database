@@ -5,6 +5,7 @@ import axios from '../../services/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import AdminNavbar from '../../admin/AdminNavbar';
 
 function MedPlantUpdate() {
   const [plantId, setPlantId] = useState('');
@@ -44,7 +45,7 @@ function MedPlantUpdate() {
 
   return (
     <div className="w-full h-screen flex flex-col">
-      <Navbar />
+      <AdminNavbar />
       <div className="flex flex-grow mt-20">
         {/* Sidebar */}
         <div className="bg-color-4  w-1/4 p-8">
@@ -117,7 +118,7 @@ function MedPlantUpdate() {
                 placeholder="Enter Plant ID"
                 value={plantId}
                 onChange={(e) => setPlantId(e.target.value)}
-                className="p-2 m-2 border border-gray-300 rounded-md"
+                className="p-2 m-2 text-black border border-gray-300 rounded-md"
               />
 
               <label htmlFor="name" className="text-white mb-2">Name:</label>
@@ -127,7 +128,7 @@ function MedPlantUpdate() {
                 placeholder="New Name (optional)"
                 value={updatedPlant.name}
                 onChange={(e) => setUpdatedPlant({ ...updatedPlant, name: e.target.value })}
-                className="p-2 m-2 border border-gray-300 rounded-md"
+                className="p-2 m-2 text-black border border-gray-300 rounded-md"
               />
 
               <label htmlFor="scientific_name" className="text-white mb-2">Scientific Name:</label>
@@ -137,7 +138,7 @@ function MedPlantUpdate() {
                 placeholder="New Scientific Name (optional)"
                 value={updatedPlant.scientific_name}
                 onChange={(e) => setUpdatedPlant({ ...updatedPlant, scientific_name: e.target.value })}
-                className="p-2 m-2 border border-gray-300 rounded-md"
+                className="p-2 m-2 text-black border border-gray-300 rounded-md"
               />
 
               <label htmlFor="family" className="text-white mb-2">Family:</label>
@@ -147,7 +148,7 @@ function MedPlantUpdate() {
                 placeholder="New Family (optional)"
                 value={updatedPlant.family}
                 onChange={(e) => setUpdatedPlant({ ...updatedPlant, family: e.target.value })}
-                className="p-2 m-2 border border-gray-300 rounded-md"
+                className="p-2 m-2 text-black border border-gray-300 rounded-md"
               />
 
               <button

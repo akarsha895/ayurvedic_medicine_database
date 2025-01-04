@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminNavbar from "./AdminNavbar";
 
 const sampleData = [
   {
@@ -87,7 +88,7 @@ function AdminDashboard() {
 
   return (
     <div className="text-black w-full h-screen flex flex-col">
-      <Navbar />
+      <AdminNavbar />
       <div className="flex flex-grow mt-20">
         <div className="bg-color-4  w-1/4 p-8">
           <h2 className="text-2xl text-white font-serif mb-4">

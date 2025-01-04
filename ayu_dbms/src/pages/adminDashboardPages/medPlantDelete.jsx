@@ -5,6 +5,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import axios from "../../services/api";
 import { Link } from "react-router-dom";
+import AdminNavbar from "../../admin/AdminNavbar";
 
 function MedPlantDelete() {
   const [plantId, setPlantId] = useState("");
@@ -33,7 +34,7 @@ function MedPlantDelete() {
 
   return (
     <div className="w-full h-screen flex flex-col">
-      <Navbar />
+      <AdminNavbar />
       <div className="flex flex-grow">
         {/* Sidebar */}
         <div className="bg-color-4 mt-20 w-1/4 p-8">
@@ -112,7 +113,7 @@ function MedPlantDelete() {
                 placeholder="Enter Plant ID"
                 value={plantId}
                 onChange={(e) => setPlantId(e.target.value)}
-                className="p-2 m-2 border border-gray-300 rounded-md"
+                className="p-2 m-2 border text-black border-gray-300 rounded-md"
               />
 
               <button

@@ -51,7 +51,7 @@ function LoginPage() {
             <img src={loginbg} alt="Contact Us" className="w-full h-64 object-cover rounded-lg" />
         </div>
         <div className="bg-color-2 p-8 rounded shadow-md w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-6 text-white text-center">Login</h2>
+          <h2 className="text-2xl font-bold mb-6 text-white text-center">Admin Login</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-white">
@@ -87,7 +87,7 @@ function LoginPage() {
               type="submit"
               className="w-full bg-color-1 text-white py-2 px-4 rounded-lg hover:border-2 hover:border-color-5 transition duration-200"
             >
-              <Link to="/admin-dashboard">
+              <Link to="/adminHome">
               Login
               </Link>
             </button>
