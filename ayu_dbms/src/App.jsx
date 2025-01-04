@@ -31,6 +31,7 @@ import HerbPrepInsert from './pages/adminDashboardPages/herbPrepInsert';
 import HerbPrepUpdate from './pages/adminDashboardPages/herbPrepUpdate';
 import HerbPrepDelete from './pages/adminDashboardPages/herbPrepDelete';
 import HerbPrepView from './pages/adminDashboardPages/herbPrepView';
+import AdminHome from './admin/AdminHome';
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
         <Route path="/admin-ayumed/update" element={<AyuTreatUpdate/>} />
         <Route path="/admin-ayumed/delete" element={<AyuTreatDelete/>} />
         <Route path="/admin-ayumed/view" element={<AyuTreatView/>} />
+        <Route path="/adminHome" element={<AdminHome />} />
 
 
 

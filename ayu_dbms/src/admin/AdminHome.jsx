@@ -1,18 +1,19 @@
-import React from "react";
-import Navbar from "../components/Navbar"; // Import the Navbar component
-import Footer from "../components/Footer"; // Import the Footer component
-import medicinalPlant from "../assets/medicinalPlant.png";
-import Disease from "../assets/disease.png";
-import AyuMed from "../assets/ayurvedicMedicine.png";
-import HerbalPrep from "../assets/herbalPreparation.png";
-import HomeImg from "../assets/homeimg.jpg";
-import { Link } from "react-router-dom";
+import React from 'react'
+import AdminNavbar from './AdminNavbar';
+import { Link } from 'react-router-dom';
+import HomeImg from '../assets/homeimg.jpg';
+import medicinalPlant from '../assets/medicinalPlant.png';
+import Disease from '../assets/disease.png';
+import AyuMed from '../assets/ayurvedicMedicine.png';
+import HerbalPrep from '../assets/herbalPreparation.png';
+import Footer from '../components/Footer';
+import logo from '../assets/logo.png';
 
-function HomePage() {
+function AdminHome() {
   return (
     <div>
-      <Navbar />
-      <div className=" text-white mt-20 w-full h-screen">
+      <AdminNavbar />
+      <div className=" text-white my-20 w-full h-screen">
         {/* Main Content */}
         <section>
           <div className="flex  font-serif  m-4">
@@ -112,7 +113,7 @@ function HomePage() {
       </div>
       <Footer />
     </div>
-  );
+  )
 }
 
-export default HomePage;
+export default AdminHome;

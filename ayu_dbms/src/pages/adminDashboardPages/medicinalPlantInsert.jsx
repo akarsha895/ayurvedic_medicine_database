@@ -5,6 +5,7 @@ import axios from "../../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import AdminNavbar from "../../admin/AdminNavbar";
 
 function MedicinalPlantInsert() {
   const [newPlant, setNewPlant] = useState({
@@ -30,7 +31,7 @@ function MedicinalPlantInsert() {
 
   return (
     <div className="text-black w-full h-screen flex flex-col">
-      <Navbar />
+      <AdminNavbar />
       <div className="flex flex-grow">
         {/* Sidebar */}
         <div className="bg-color-4 mt-20 w-1/4 p-8">
@@ -99,7 +100,7 @@ function MedicinalPlantInsert() {
                 onChange={(e) =>
                   setNewPlant({ ...newPlant, name: e.target.value })
                 }
-                className="p-2 m-2 border border-gray-300 rounded-md"
+                className="p-2 m-2 border text-black border-gray-300 rounded-md"
               />
               <input
                 type="text"
@@ -108,7 +109,7 @@ function MedicinalPlantInsert() {
                 onChange={(e) =>
                   setNewPlant({ ...newPlant, scientific_name: e.target.value })
                 }
-                className="p-2 m-2 border border-gray-300 rounded-md"
+                className="p-2 m-2 border text-black border-gray-300 rounded-md"
               />
               <input
                 type="text"
@@ -117,7 +118,7 @@ function MedicinalPlantInsert() {
                 onChange={(e) =>
                   setNewPlant({ ...newPlant, family: e.target.value })
                 }
-                className="p-2 m-2 border border-gray-300 rounded-md"
+                className="p-2 m-2 border text-black border-gray-300 rounded-md"
               />
               <button
                 onClick={handleAddPlant}
