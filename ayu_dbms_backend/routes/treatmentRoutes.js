@@ -5,8 +5,8 @@ const authMiddleware = require('../middleware/authMiddleware'); // To protect ad
 
 // Routes for managing Ayurvedic treatments
 router.get('/', treatmentController.getAllTreatments); // Get all treatments
-router.post('/', authMiddleware.verifyToken, treatmentController.addTreatment); // Admin only route to add treatments
-router.put('/:id', authMiddleware.verifyToken, treatmentController.updateTreatment); // Admin only route to update treatments
-router.delete('/:id', authMiddleware.verifyToken, treatmentController.deleteTreatment); // Admin only route to delete treatments
+router.post('/', treatmentController.addTreatment); // Admin only route to add treatments
+router.put('/:id',  treatmentController.updateTreatment); // Admin only route to update treatments
+router.delete('/:id', treatmentController.deleteTreatment); // Admin only route to delete treatments
 
 module.exports = router;

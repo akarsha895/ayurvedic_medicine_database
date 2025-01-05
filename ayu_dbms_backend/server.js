@@ -24,7 +24,7 @@ app.use('/api/treatments', treatmentRoutes); // Use Ayurvedic treatment routes
 app.use('/api/herbal-preparations', herbalPreparationRoutes);
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000 ||5173;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

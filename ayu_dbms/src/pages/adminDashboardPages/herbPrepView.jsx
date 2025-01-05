@@ -118,7 +118,7 @@ function HerbPrepView() {
                   </thead>
                   <tbody>
                     {herbalPreparations.map((prep) => (
-                      <tr key={prep.id}>
+                      <tr key={prep.preparation_id}>
                         <td className="py-3 px-4">{prep.preparation_id}</td>
                         <td className="py-3 px-4">{prep.preparation_name}</td>
                         <td className="py-3 px-4">{prep.method_of_preparation}</td>

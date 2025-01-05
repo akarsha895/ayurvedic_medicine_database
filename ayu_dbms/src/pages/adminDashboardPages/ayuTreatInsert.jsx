@@ -1,43 +1,108 @@
 import { useState } from 'react';
-import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import AdminNavbar from '../../admin/AdminNavbar';
 
+// function AyuTreatInsert() {
+//   const [formData, setFormData] = useState({
+//     treatmentName: '',
+//     duration: '',
+//     disease: '',
+//   });
+
+//   const handleInputChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({ ...formData, [name]: value });
+//   };
+
+//   const handleSubmit = () => {
+//     // Validate input
+//     if (!formData.treatmentName || !formData.duration || !formData.disease) {
+//       toast.error('Please fill in all fields.', {
+//         position: 'top-center',
+//       });
+//       return;
+//     }
+
+//     // Simulate successful submission
+//     toast.success('Ayurvedic treatment added successfully!', {
+//       position: 'top-center',
+//     });
+
+//     // Clear the form
+//     setFormData({ treatmentName: '', duration: '', disease: '' });
+//   };
 function AyuTreatInsert() {
   const [formData, setFormData] = useState({
     treatmentName: '',
     duration: '',
-    disease: '',
+    diseases: [],
   });
+  const [diseaseInput, setDiseaseInput] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = () => {
-    // Validate input
-    if (!formData.treatmentName || !formData.duration || !formData.disease) {
-      toast.error('Please fill in all fields.', {
-        position: 'top-center',
+  const handleAddDisease = () => {
+    if (diseaseInput.trim()) {
+      setFormData({
+        ...formData,
+        diseases: [...formData.diseases, diseaseInput.trim()],
       });
+      setDiseaseInput('');
+    }
+  };
+
+  const handleRemoveDisease = (index) => {
+    setFormData({
+      ...formData,
+      diseases: formData.diseases.filter((_, i) => i !== index),
+    });
+  };
+
+  const handleSubmit = async () => {
+    if (!formData.treatmentName || !formData.duration || formData.diseases.length === 0) {
+      toast.error('Please fill in all fields.', { position: 'top-center' });
       return;
     }
-
-    // Simulate successful submission
-    toast.success('Ayurvedic treatment added successfully!', {
-      position: 'top-center',
-    });
-
-    // Clear the form
-    setFormData({ treatmentName: '', duration: '', disease: '' });
+  
+    try {
+      const response = await fetch('/api/treatments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      // Check if the response is JSON
+      const contentType = response.headers.get('Content-Type') || '';
+      if (contentType.includes('application/json')) {
+        const data = await response.json();
+  
+        if (response.ok) {
+          toast.success('Ayurvedic treatment added successfully!', { position: 'top-center' });
+          setFormData({ treatmentName: '', duration: '', diseases: [] });
+        } else {
+          // Handle backend error response
+          toast.error(`Error: ${data.error || 'Unknown error'}`, { position: 'top-center' });
+        }
+      } else {
+        // Handle non-JSON response
+        toast.error('Unexpected response from the server.', { position: 'top-center' });
+      }
+    } catch (error) {
+      toast.error(`Error: ${error.message}`, { position: 'top-center' });
+    }
   };
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      <AdminNavbar/>
       <div className="flex flex-grow mt-0">
         {/* Sidebar */}
         <div className="bg-color-4 mt-20 w-1/4 p-8">
@@ -94,43 +159,62 @@ function AyuTreatInsert() {
 
         {/* Main Content */}
         <main className="flex-grow bg-gray-100 p-8 flex items-center justify-center">
-          <div className="bg-color-4 text-lg text-white p-6 w-full max-w-lg rounded-lg shadow-lg">
-            <h1 className="text-center text-2xl font-serif font-bold mb-6">Add Ayurvedic Treatment</h1>
-            <div className="flex flex-col">
+        <div className="bg-color-4 text-lg text-white p-6 w-full max-w-lg rounded-lg shadow-lg">
+          <h1 className="text-center text-2xl font-serif font-bold mb-6">Add Ayurvedic Treatment</h1>
+          <div className="flex flex-col">
+            <input
+              type="text"
+              name="treatmentName"
+              placeholder="Ayurvedic Treatment Name"
+              value={formData.treatmentName}
+              onChange={handleInputChange}
+              className="p-2 m-2 border text-black border-gray-300 rounded-md"
+            />
+            <input
+              type="text"
+              name="duration"
+              placeholder="Duration (e.g., 10 days)"
+              value={formData.duration}
+              onChange={handleInputChange}
+              className="p-2 m-2  text-black border border-gray-300 rounded-md"
+            />
+            <div className="p-2 m-2">
               <input
                 type="text"
-                name="treatmentName"
-                placeholder="Ayurvedic Treatment Name"
-                value={formData.treatmentName}
-                onChange={handleInputChange}
-                className="p-2 m-2 border border-gray-300 rounded-md"
+                placeholder="Add Disease"
+                value={diseaseInput}
+                onChange={(e) => setDiseaseInput(e.target.value)}
+                className="p-2 border text-black border-gray-300 rounded-md"
               />
-              <input
-                type="text"
-                name="duration"
-                placeholder="Duration (e.g., 10 days)"
-                value={formData.duration}
-                onChange={handleInputChange}
-                className="p-2 m-2 border border-gray-300 rounded-md"
-              />
-              <input
-                type="text"
-                name="disease"
-                placeholder="Associated Disease"
-                value={formData.disease}
-                onChange={handleInputChange}
-                className="p-2 m-2 border border-gray-300 rounded-md"
-              />
-              {/* Submit Button */}
               <button
-                onClick={handleSubmit}
-                className="bg-color-1 p-2 m-2 rounded-lg text-white hover:border-2 hover:border-color-5"
+                onClick={handleAddDisease}
+                className="ml-2 bg-color-1 p-2 rounded-lg text-white hover:border-2 hover:border-color-5"
               >
-                Add Ayurvedic Treatment
+                Add
               </button>
             </div>
+            <div className="m-2">
+              {formData.diseases.map((disease, index) => (
+                <div key={index} className="flex items-center">
+                  <span>{disease}</span>
+                  <button
+                    onClick={() => handleRemoveDisease(index)}
+                    className="ml-2 text-red-500"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={handleSubmit}
+              className="bg-color-1 p-2 m-2 rounded-lg text-white hover:border-2 hover:border-color-5"
+            >
+              Add Ayurvedic Treatment
+            </button>
+            </div>
           </div>
-        </main>
+         </main>
       </div>
 
       {/* Toast Container */}

@@ -88,7 +88,7 @@ console.log('Token:', token); // Check if token is available
             {/* Manage Resources Section */}
             <div className="group">
               <button className="bg-color-2 text-white p-2 rounded-lg w-full text-left group-hover:bg-color-3">
-                Manage Resources
+                Manage Ayurvedic Treatments
               </button>
               <div className="hidden group-hover:block bg-color-3 rounded-lg mt-2 space-y-2">
                 <Link to="/admin-resources/insert" className="block text-white px-4 py-2 hover:bg-color-2">Insert</Link>

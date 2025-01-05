@@ -86,7 +86,7 @@ function DiseaseUpdate() {
         <main className="flex-grow bg-gray-100 p-8 flex items-center justify-center">
           <div className="bg-color-4 text-lg text-white p-6 w-full max-w-lg rounded-lg shadow-lg">
             <h1 className="text-3xl text-center font-serif mb-6">Update Disease</h1>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-black">
               <input
                 type="text"
                 name="diseaseName"

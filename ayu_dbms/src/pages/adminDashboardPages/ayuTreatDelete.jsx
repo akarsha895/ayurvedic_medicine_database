@@ -12,7 +12,7 @@ function AyuTreatDelete() {
     setTreatmentId(e.target.value);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     // Validate input
     if (treatmentId.trim() === '') {
       toast.error('Please enter an Ayurvedic Treatment ID to delete.', {
@@ -21,15 +21,29 @@ function AyuTreatDelete() {
       return;
     }
 
-    // Simulate successful deletion
-    toast.success(`Ayurvedic treatment with ID "${treatmentId}" deleted successfully!`, {
-      position: toast.POSITION.TOP_CENTER,
+    // Send DELETE request to backend API
+    const response = await fetch(`/api/treatments/${treatmentId}`, {
+      method: 'DELETE',
     });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Error deleting treatment:", errorText);
+
+      if (errorText.includes('treatment_not_found')) {
+        toast.error('Ayurvedic treatment with that ID not found.');
+      } else {
+        toast.error('Failed to delete treatment. See console for details.');
+      }
+      return;
+    }
+
+    // Display success toast notification on successful deletion
+    toast.success(`Ayurvedic treatment with ID "${treatmentId}" deleted successfully!`);
 
     // Clear the input
     setTreatmentId('');
   };
-
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -100,10 +114,7 @@ function AyuTreatDelete() {
               className="p-3 m-3 border border-gray-300 w-3/4 text-black rounded-md"
             />
             {/* Delete Button */}
-            <button
-              onClick={handleDelete}
-              className="bg-color-1 p-3 m-3 rounded-lg text-white"
-            >
+            <button onClick={handleDelete} className="bg-color-1 p-3 m-3 rounded-lg text-white">
               Delete Ayurvedic Treatment
             </button>
           </div>
