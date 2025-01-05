@@ -124,7 +124,7 @@ exports.addDisease = (req, res) => {
 exports.updateDisease = (req, res) => {
     const { id } = req.params;
     const { name, effected_doshas } = req.body;
-
+    console.log(req.body)
     db.query('UPDATE Disease SET name=?, effected_doshas=? WHERE disease_id=?', [name, effected_doshas, id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ message: 'Disease updated successfully' });
@@ -134,7 +134,7 @@ exports.updateDisease = (req, res) => {
 // Delete a disease (admin only)
 exports.deleteDisease = (req, res) => {
     const { id } = req.params;
-
+    console.log("DEL with id: "+id)
     db.query('DELETE FROM Disease WHERE disease_id=?', [id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ message: 'Disease deleted successfully' });

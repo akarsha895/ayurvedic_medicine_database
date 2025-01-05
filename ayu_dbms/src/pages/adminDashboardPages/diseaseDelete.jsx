@@ -12,20 +12,28 @@ function DiseaseDelete() {
     setIdentifier(e.target.value);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async() => {
     // Simulate API call for deleting disease
-    if (identifier.trim() === '') {
-      toast.error('Please enter a disease name or ID to delete.', {
+    try {
+      if (identifier) {
+        // alert(identifier)
+        // Make the delete API call
+        await fetch(`http://localhost:5000/api/diseases/${identifier}`,{method: "DELETE"});
+        setIdentifier("");
+        toast.success("Disease deleted successfully!", {
+          position: 'top-center',
+        });
+      } else {
+        toast.error("Please provide a valid Disease ID.", {
+          position: 'top-center',
+        });
+      }
+    } catch (error) {
+      console.error("Error deleting disease:", error);
+      toast.error("Failed to delete disease. Please try again.", {
         position: 'top-center',
       });
-      return;
     }
-
-    // Simulate successful deletion
-    toast.success(`Disease with identifier "${identifier}" deleted successfully!`, {
-      position:'top-center',
-    });
-    setIdentifier(''); // Clear input after deletion
   };
 
   return (
