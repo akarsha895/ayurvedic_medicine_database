@@ -6,40 +6,60 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 
 function HerbPrepUpdate() {
-  const [searchCriteria, setSearchCriteria] = useState('');
   const [formData, setFormData] = useState({
+    preparationId: '',
     herbalPreparationName: '',
     methodOfPreparation: '',
     plantName: '',
   });
 
-  const handleSearchChange = (e) => {
-    setSearchCriteria(e.target.value);
-  };
-
+  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleUpdate = () => {
-    // Validate input
-    if (!searchCriteria) {
-      toast.error('Please enter a search criteria to find the herbal preparation.', {
-        position: 'top-center',
+  // Handle form submission
+  const handleSubmit = async () => {
+    try {
+      if (!formData.preparationId || !formData.herbalPreparationName || !formData.methodOfPreparation || !formData.plantName) {
+        toast.error("All fields are required!", { position: "top-center" });
+        return;
+      }
+  
+      const payload = {
+        name: formData.herbalPreparationName,
+        method_of_preparation: formData.methodOfPreparation,
+        plant_ids: [formData.plantName],
+      };
+  
+      console.log("Payload sent to server:", payload);
+  
+      const response = await fetch(`http://localhost:5000/api/herbal-preparations/${formData.preparationId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       });
-      return;
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("API Error:", errorData);
+        throw new Error(errorData.error || "Error updating herbal preparation");
+      }
+  
+      toast.success("Herbal preparation updated successfully!", { position: "top-center" });
+      setFormData({ preparationId: '', herbalPreparationName: '', methodOfPreparation: '', plantName: '' });
+    } catch (error) {
+      console.error("Error updating herbal preparation:", error);
+      toast.error("Failed to update herbal preparation. Please try again.", { position: "top-center" });
     }
-
-    // Simulate successful update
-    toast.success('Herbal preparation updated successfully!', {
-      position:'top-center',
-    });
-
-    // Clear the form
-    setSearchCriteria('');
-    setFormData({ herbalPreparationName: '', methodOfPreparation: '', plantName: '' });
   };
+  
+
+  
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -98,54 +118,55 @@ function HerbPrepUpdate() {
                   </nav>
                 </div>
 
-        {/* Main Content */}
-        <main className="flex-grow bg-gray-100 p-8 flex items-center justify-center">
-          <div className="bg-color-4 text-lg text-white p-6 w-full max-w-lg rounded-lg shadow-lg">
-            <h1 className="text-center text-3xl font-serif mb-6">Update Herbal Preparation</h1>
-            {/* Search Input */}
-            {/* <input
-              type="text"
-              placeholder="Search by Herbal Preparation Name, Method or Plant Name"
-              value={searchCriteria}
-              onChange={handleSearchChange}
-              className="p-2 m-2 border border-gray-300 rounded-md"
-            /> */}
-            {/* Form for Updating Details */}
-            <div className="flex flex-col">
-              <input
-                type="text"
-                name="herbalPreparationName"
-                placeholder="Herbal Preparation Name"
-                value={formData.herbalPreparationName}
-                onChange={handleInputChange}
-                className="p-2 m-2 border border-gray-300 rounded-md"
-              />
-              <input
-                type="text"
-                name="methodOfPreparation"
-                placeholder="Method of Preparation"
-                value={formData.methodOfPreparation}
-                onChange={handleInputChange}
-                className="p-2 m-2 border border-gray-300 rounded-md"
-              />
-              <input
-                type="text"
-                name="plantName"
-                placeholder="Plant Name"
-                value={formData.plantName}
-                onChange={handleInputChange}
-                className="p-2 m-2 border border-gray-300 rounded-md"
-              />
-              {/* Update Button */}
-              <button
-                onClick={handleUpdate}
-                className="bg-color-1 p-2 m-2 rounded-lg text-white"
-              >
-                Update Herbal Preparation
-              </button>
-            </div>
-          </div>
-        </main>
+                <main className="flex-grow bg-gray-100 p-8 flex items-center justify-center">
+  <div className="bg-color-4 text-lg text-white p-6 w-full max-w-lg rounded-lg shadow-lg">
+    <h2 className="text-center text-3xl font-serif mb-6">Update Herbal Preparation</h2>
+    {/* Form for Updating Details */}
+    <div className="flex flex-col text-black">
+      <input
+        type="text"
+        name="preparationId"
+        required
+        placeholder="Enter Preparation ID (required)"
+        value={formData.preparationId}
+        onChange={handleInputChange}
+        className="p-2 m-2 border border-gray-300 rounded-md"
+      />
+      <input
+        type="text"
+        name="herbalPreparationName"
+        placeholder="Enter Herbal Preparation Name (optional)"
+        value={formData.herbalPreparationName}
+        onChange={handleInputChange}
+        className="p-2 m-2 border border-gray-300 rounded-md"
+      />
+      <textarea
+        name="methodOfPreparation"
+        placeholder="Enter Method of Preparation (optional)"
+        value={formData.methodOfPreparation}
+        onChange={handleInputChange}
+        className="p-2 m-2 border border-gray-300 rounded-md"
+      />
+      <input
+        type="text"
+        name="plantName"
+        placeholder="Enter Plant Name (optional)"
+        value={formData.plantName}
+        onChange={handleInputChange}
+        className="p-2 m-2 border border-gray-300 rounded-md"
+      />
+      {/* Update Button */}
+      <button
+        onClick={handleSubmit}
+        className="bg-color-1 p-2 m-2 rounded-lg text-white"
+      >
+        Update Herbal Preparation
+      </button>
+    </div>
+  </div>
+</main>
+
+
       </div>
 
       {/* Toast Container */}

@@ -120,16 +120,62 @@ exports.addDisease = (req, res) => {
 };
 
 
-// Update an existing disease (admin only)
 exports.updateDisease = (req, res) => {
-    const { id } = req.params;
-    const { name, effected_doshas } = req.body;
-    console.log(req.body)
-    db.query('UPDATE Disease SET name=?, effected_doshas=? WHERE disease_id=?', [name, effected_doshas, id], (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json({ message: 'Disease updated successfully' });
-    });     
+    const { id } = req.params; // Disease ID
+    const { name, effected_doshas, symptoms } = req.body;
+
+    // Validate input
+    if (!name || !effected_doshas || !symptoms) {
+        return res.status(400).json({ error: "All fields (name, effected_doshas, symptoms) are required." });
+    }
+
+    // Update Disease table
+    db.query(
+        'UPDATE Disease SET name = ?, effected_doshas = ? WHERE disease_id = ?',
+        [name, effected_doshas, id],
+        (err, results) => {
+            if (err) {
+                console.error("Error updating Disease:", err.message);
+                return res.status(500).json({ error: "Error updating Disease: " + err.message });
+            }
+
+            // If no rows were affected, return a 404 error
+            if (results.affectedRows === 0) {
+                return res.status(404).json({ message: "No disease found with the provided ID." });
+            }
+
+            // Delete existing symptoms for the disease
+            db.query(
+                'DELETE FROM Disease_symptoms WHERE disease_id = ?',
+                [id],
+                (deleteErr) => {
+                    if (deleteErr) {
+                        console.error("Error deleting symptoms:", deleteErr.message);
+                        return res.status(500).json({ error: "Error deleting symptoms: " + deleteErr.message });
+                    }
+
+                    // Insert new symptoms
+                    const symptomInserts = symptoms.map((symptom) => [id, symptom]);
+                    db.query(
+                        'INSERT INTO Disease_symptoms (disease_id, symptom) VALUES ?',
+                        [symptomInserts],
+                        (insertErr) => {
+                            if (insertErr) {
+                                console.error("Error inserting symptoms:", insertErr.message);
+                                return res.status(500).json({ error: "Error inserting symptoms: " + insertErr.message });
+                            }
+
+                            res.json({ message: "Disease and symptoms updated successfully." });
+                        }
+                    );
+                }
+            );
+        }
+    );
 };
+
+
+
 
 // Delete a disease (admin only)
 exports.deleteDisease = (req, res) => {

@@ -5,31 +5,57 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 
+
 function HerbPrepDelete() {
-  const [herbalPrepId, setHerbalPrepId] = useState('');
+  const [herbalPrepId, setHerbalPrepId] = useState(''); // State for Herbal Preparation ID
 
   const handleInputChange = (e) => {
-    setHerbalPrepId(e.target.value);
+    setHerbalPrepId(e.target.value); // Update the herbalPrepId state when input changes
   };
 
-  const handleDelete = () => {
+  const handleDelete = async (e) => {
+    e.preventDefault(); // Prevent form from submitting and reloading the page
+
     // Validate input
     if (herbalPrepId.trim() === '') {
       toast.error('Please enter a Herbal Preparation ID to delete.', {
-        position:'top-center',
+        position: 'top-center',
       });
       return;
     }
 
-    // Simulate successful deletion
-    toast.success(`Herbal preparation with ID "${herbalPrepId}" deleted successfully!`, {
-      position: 'top-center',
-    });
+    if (isNaN(herbalPrepId)) {
+      toast.error('Invalid Herbal Preparation ID. Please enter a numeric ID.', {
+        position: 'top-center',
+      });
+      return;
+    }
 
-    // Clear the input
-    setHerbalPrepId('');
+    // Simulate API call for deleting herbal preparation
+    try {
+      const response = await fetch(`/api/herbal-preparations/${herbalPrepId}`, {
+        method: 'DELETE',
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        toast.success(`Herbal preparation with ID "${herbalPrepId}" deleted successfully!`, {
+          position: 'top-center',
+        });
+        setHerbalPrepId('');
+      } else {
+        toast.error(result.error || 'Failed to delete herbal preparation. Please try again.', {
+          position: 'top-center',
+        });
+      }
+    } catch (error) {
+      console.error('Error deleting herbal preparation:', error);
+      toast.error('Failed to delete herbal preparation. Please try again.', {
+        position: 'top-center',
+      });
+    }
   };
-
+  
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -87,28 +113,30 @@ function HerbPrepDelete() {
                   </nav>
                 </div>
 
-        {/* Main Content */}
-        <main className="flex-grow bg-gray-100 p-8 flex items-center justify-center">
-          <div className="bg-color-4 text-lg text-white p-6 w-full max-w-lg rounded-lg shadow-lg">
-            <h1 className="text-center text-3xl font-serif mb-6">Delete Herbal Preparation</h1>
-            {/* Input for Herbal Preparation ID */}
-            <input
-              type="text"
-              placeholder="Enter Herbal Preparation ID"
-              value={herbalPrepId}
-              onChange={handleInputChange}
-              className="p-2 m-2 border w-full border-gray-300 rounded-md"
-            />
-            <br/>
-            {/* Delete Button */}
-            <button
-              onClick={handleDelete}
-              className="bg-color-1 p-2 m-2 rounded-lg text-white"
-            >
-              Delete Herbal Preparation
-            </button>
-          </div>
-        </main>
+         {/* Main Content */}
+<main className="flex-grow bg-gray-100 p-8 flex items-center justify-center">
+  <div className="bg-color-4 text-lg text-white p-6 w-full max-w-lg rounded-lg shadow-lg">
+    <h1 className="text-3xl text-center text-blackfont-serif mb-6">Delete Herbal Preparation</h1>
+    <form onSubmit={handleDelete} className="flex flex-col">
+      {/* Input for Herbal Preparation ID */}
+      <input
+        type="text"
+        placeholder="Enter Herbal Preparation ID"
+        value={herbalPrepId}
+        onChange={handleInputChange}
+        className="p-2 m-2 border text-black border-gray-300 rounded-md"
+      />
+      {/* Delete Button */}
+      <button
+        type="submit" // Changed to type="submit" to submit the form
+        className="bg-color-1 p-2 m-2 rounded-lg text-white"
+      >
+        Delete Herbal Preparation
+      </button>
+    </form>
+  </div>
+</main>
+
       </div>
 
       {/* Toast Container */}

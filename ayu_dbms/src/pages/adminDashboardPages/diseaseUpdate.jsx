@@ -18,34 +18,76 @@ function DiseaseUpdate() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async() => {
-    // Simulate API call for updating disease
-    try {
-      if (formData.diseaseid) {
-        // alert(identifier)
-        // Make the delete API call
-        await fetch(`http://localhost:5000/api/diseases/${formData.diseaseid}`,{method: "PUT",body: JSON.stringify({
-          name: formData.diseaseName,
-          effected_doshas: formData.affectedDoshas,
-          symptoms: formData.symptoms
-        })});
-        toast.success("Disease updated successfully!", {
-          position: 'top-center',
-        });
-    setFormData({ diseaseid:'',diseaseName: '', affectedDoshas: '', symptoms: '' });
+  // const handleSubmit = async() => {
+  //   // Simulate API call for updating disease
+  //   try {
+  //     if (formData.diseaseid) {
+  //       // alert(identifier)
+  //       // Make the delete API call
+  //       // await fetch(`http://localhost:5000/api/diseases/${formData.diseaseid}`,{method: "PUT",body: JSON.stringify({
+  //       //   name: formData.diseaseName,
+  //       //   effected_doshas: formData.affectedDoshas,
+  //       //   symptoms: formData.symptoms
+  //       // })});
+  //       await fetch(`http://localhost:5000/api/diseases/${formData.diseaseid}`, {
+  //         method: "PUT",
+  //         headers: {
+  //             "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //             name: formData.diseaseName,
+  //             effected_doshas: formData.affectedDoshas,
+  //             symptoms: formData.symptoms,
+  //         }),
+  //     });
+      
+  //       toast.success("Disease updated successfully!", {
+  //         position: 'top-center',
+  //       });
+  //   setFormData({ diseaseid:'',diseaseName: '', affectedDoshas: '', symptoms: '' });
 
-      } else {
-        toast.error("Please provide a valid Disease ID.", {
-          position: 'top-center',
-        });
-      }
+  //     } else {
+  //       toast.error("Please provide a valid Disease ID.", {
+  //         position: 'top-center',
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating disease:", error);
+  //     toast.error("Failed to update disease. Please try again.", {
+  //       position: 'top-center',
+  //     });
+  //   }
+  // };
+  const handleSubmit = async () => {
+    try {
+        if (formData.diseaseid) {
+            const response = await fetch(`http://localhost:5000/api/diseases/${formData.diseaseid}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: formData.diseaseName,
+                    effected_doshas: formData.affectedDoshas,
+                    symptoms: formData.symptoms.split(',').map(s => s.trim()), // Convert symptoms to an array
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+
+            toast.success("Disease updated successfully!", { position: "top-center" });
+            setFormData({ diseaseid: '', diseaseName: '', affectedDoshas: '', symptoms: '' });
+        } else {
+            toast.error("Please provide a valid Disease ID.", { position: "top-center" });
+        }
     } catch (error) {
-      console.error("Error updating disease:", error);
-      toast.error("Failed to update disease. Please try again.", {
-        position: 'top-center',
-      });
+        console.error("Error updating disease:", error);
+        toast.error("Failed to update disease. Please try again.", { position: "top-center" });
     }
-  };
+};
+
 
   return (
     <div className="flex flex-col min-h-screen">

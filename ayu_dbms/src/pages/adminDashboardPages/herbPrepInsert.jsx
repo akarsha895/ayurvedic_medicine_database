@@ -162,6 +162,7 @@ function HerbPrepInsert() {
       Add Herbal Preparation
     </h1>
     <div className="flex flex-col">
+      {/* Herbal Preparation Name Input */}
       <input
         type="text"
         name="herbalPreparationName"
@@ -170,6 +171,8 @@ function HerbPrepInsert() {
         onChange={handleInputChange}
         className="p-2 m-2 border border-gray-300 rounded-md"
       />
+
+      {/* Method of Preparation Input */}
       <input
         type="text"
         name="methodOfPreparation"
@@ -179,7 +182,7 @@ function HerbPrepInsert() {
         className="p-2 m-2 border border-gray-300 rounded-md"
       />
 
-      {/* Plant Names Input Fields */}
+      {/* Dynamic Plant Name Inputs */}
       {formData.plantNames.map((plantName, index) => (
         <div key={index} className="flex items-center mb-2">
           <input
@@ -192,7 +195,7 @@ function HerbPrepInsert() {
           <button
             onClick={() => handleRemovePlant(index)}
             className="ml-2 bg-red-500 text-white p-1 rounded-md"
-            disabled={formData.plantNames.length === 1} // Disable remove button for the first plant
+            disabled={formData.plantNames.length === 1}
           >
             Remove
           </button>
@@ -207,7 +210,7 @@ function HerbPrepInsert() {
         Add Plant
       </button>
 
-      {/* Submit Button */}
+      {/* Submit Form Button */}
       <button
         onClick={handleSubmit}
         className="bg-color-1 p-2 m-2 rounded-lg text-white"
@@ -217,6 +220,8 @@ function HerbPrepInsert() {
     </div>
   </div>
 </main>
+
+
       </div>
 
       {/* Toast Container */}
